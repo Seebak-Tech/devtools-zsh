@@ -35,8 +35,8 @@ jobs:
         with:
           context: ./Docker/zsh
           file: Dockerfile
-          build-args:
-            - ${{ steps.get_version.outputs.version-without-v }} 
+          build-args: |
+            VERSION=${{ steps.get_version.outputs.version-without-v }} 
           push: true
           tags: seebaktec/zsh:latest
 
