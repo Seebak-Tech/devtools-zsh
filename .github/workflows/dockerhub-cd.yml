@@ -1,10 +1,12 @@
-# Continuos Delivery/Deployment to Docker Hub
+# Continuos Delivery/Deployment to DockerHub
 
 on:
   push:
     tags:
         - "v*.*.*"
-        
+
+name: Continuos Delivery-Deployment to DockerHub        
+
 jobs:
 
   build:
