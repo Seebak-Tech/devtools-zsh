@@ -1,6 +1,7 @@
 FROM ubuntu
 
 ARG VERSION=0.0.0
+ARG GIT_VERSION=v2.30.2
 
 LABEL "Version" = $VERSION
 LABEL "Name" = "devtools-zsh"
@@ -15,10 +16,14 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
 RUN apt-get update \
     && apt-get install -y -q --allow-unauthenticated \
     build-essential \
+    cmake \
     curl \
     fonts-powerline \
-    git \
+    gettext \
     iputils-ping \
+    libcurl4-gnutls-dev \
+    libexpat1-dev \
+    libssl-dev \
     locales \
     make \
     net-tools \
@@ -28,10 +33,17 @@ RUN apt-get update \
     vim  \
     wget \ 
     x11-apps \
+    zlib1g-dev \
     zsh \
     zsh-syntax-highlighting \
     && apt-get clean all \
-    && rm -rf /var/lib/apt/lists/* 
+    && rm -rf /var/lib/apt/lists/* \
+    && wget -c https://github.com/git/git/archive/$GIT_VERSION.tar.gz -O - | sudo tar -xz -C /usr/src \
+    && cd /usr/src/git-* \
+    && make prefix=/usr/local all \
+    && make prefix=/usr/local install \
+    && cd /usr/src \
+    && rm -rf git-*
   
 # Set the locale
 RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen \
