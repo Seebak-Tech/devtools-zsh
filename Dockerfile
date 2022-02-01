@@ -21,6 +21,7 @@ RUN apt-get update \
     fonts-powerline \
     gettext \
     iputils-ping \
+    less \
     libcurl4-gnutls-dev \
     libexpat1-dev \
     libssl-dev \
@@ -73,5 +74,7 @@ RUN sh -c "$(wget -O- https://raw.github.com/robbyrussell/oh-my-zsh/master/tools
 COPY --chown=admin zshrc ./.zshrc
 
 COPY --chown=admin p10k.zsh ./.p10k.zsh 
+
+COPY --chown=admin gitignore_global ./.gitignore_global
 
 COPY --chown=admin gitstatusd-linux-x86_64 /home/admin/.cache/gitstatus/gitstatusd-linux-x86_64
